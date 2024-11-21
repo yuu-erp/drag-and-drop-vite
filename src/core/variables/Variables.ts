@@ -1,4 +1,4 @@
-import { AppVariableLocal } from '../../constants'
+import { APP_VARIABLE_LOCAL } from '../../constants'
 
 export class Variables<T = any> {
   private variables: Map<string, { value: T; persistent: boolean }>
@@ -60,11 +60,11 @@ export class Variables<T = any> {
         persistentData[key] = data.value
       }
     })
-    localStorage.setItem(AppVariableLocal, JSON.stringify(persistentData))
+    localStorage.setItem(APP_VARIABLE_LOCAL, JSON.stringify(persistentData))
   }
 
   private _loadFromStorage(): void {
-    const savedData = localStorage.getItem(AppVariableLocal)
+    const savedData = localStorage.getItem(APP_VARIABLE_LOCAL)
     if (savedData) {
       const parsedData = JSON.parse(savedData) as Record<string, T>
       Object.keys(parsedData).forEach((key) => {
@@ -74,6 +74,6 @@ export class Variables<T = any> {
   }
 
   private _clearStorage(): void {
-    localStorage.removeItem(AppVariableLocal)
+    localStorage.removeItem(APP_VARIABLE_LOCAL)
   }
 }

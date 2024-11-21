@@ -1,6 +1,6 @@
-import { AppRenderer } from '@core/AppRender'
+import MobileLayout from './layouts/MobileLayout'
 
 export function initApp() {
-  const rootElement = document.getElementById('main')!
-  new AppRenderer(rootElement)
+  const rootElement = document.querySelector('#main')! as HTMLElement
+  new MobileLayout(rootElement).init()
 }
