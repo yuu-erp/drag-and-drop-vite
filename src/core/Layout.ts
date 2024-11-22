@@ -17,7 +17,7 @@ export default abstract class Layout extends Root {
     return html`${this.renderHtmlStatusBar()}${this.renderHtmlPagination()}${this.renderHtmlDock()}${this.renderHtmlLoading()}`
   }
 
-  renderHtmlLoading(): TemplateResult<1> {
+  private renderHtmlLoading(): TemplateResult<1> {
     return html` <div id="loading" @click="${() => this.setLoading(false)}">Loading...</div> `
   }
 

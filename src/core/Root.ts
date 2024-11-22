@@ -1,8 +1,7 @@
 import { $ } from '@utils/domUtils'
 import { Variables } from './Variables'
-import { TemplateResult } from 'lit-html'
 
-export default abstract class Root {
+export default class Root {
   screenWidth: number
   screenHeight: number
   variables: Variables
@@ -31,6 +30,7 @@ export default abstract class Root {
   onOpenSelect() {
     this.variables.set('isSelect', true, true)
   }
+
   onCloseSelect() {
     this.variables.set('isSelect', false, true)
   }
@@ -47,6 +47,4 @@ export default abstract class Root {
     if (!elementLoading) throw Error('#loading is not defined')
     elementLoading.style.display = value ? 'flex' : 'none'
   }
-
-  abstract renderHtmlLoading(): TemplateResult<1>
 }
