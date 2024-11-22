@@ -14,7 +14,7 @@ export default abstract class Layout extends Root {
   }
 
   private renderApp() {
-    return html`${this.renderHtmlStatusBar()}${this.renderHtmlPagination()}${this.renderHtmlDock()}${this.renderHtmlLoading()}`
+    return html`${this.renderHtmlStatusBar()}${this.renderHtmlDappMain()}${this.renderHtmlPagination()}${this.renderHtmlDock()}${this.renderHtmlLoading()}`
   }
 
   private renderHtmlLoading(): TemplateResult<1> {
@@ -22,6 +22,7 @@ export default abstract class Layout extends Root {
   }
 
   abstract renderHtmlStatusBar(): TemplateResult<1>
+  abstract renderHtmlDappMain(): TemplateResult<1>
   abstract renderHtmlPagination(): TemplateResult<1>
   abstract renderHtmlDock(): TemplateResult<1>
 }
