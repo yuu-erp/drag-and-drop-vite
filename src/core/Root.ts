@@ -1,3 +1,4 @@
+import { $ } from '@utils/domUtils'
 import { Variables } from './Variables'
 
 export default class Root {
@@ -20,7 +21,7 @@ export default class Root {
 
   init() {
     console.log('this root: ', this)
-    const elementStatusBar = document.querySelector('#status-bar')
+    const elementStatusBar = $('#status-bar')
     console.log('elementStatusBar root: ', elementStatusBar)
   }
 }
