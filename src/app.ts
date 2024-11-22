@@ -6,5 +6,5 @@ export function initApp() {
   const layout = layouts[deviceType as DeviceType]
   const layoutRoot = new layout(rootElement)
   layoutRoot.render()
-  layoutRoot.init()
+  layoutRoot.initDraggable()
 }

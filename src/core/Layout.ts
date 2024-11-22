@@ -1,14 +1,11 @@
-import Root from 'src/core/Root'
 import { html, render as renderLitHTML, TemplateResult } from 'lit-html'
-import PageManager from './PageManager'
+import Draggable from './Draggable'
 
-export default abstract class Layout extends Root {
+export default abstract class Layout extends Draggable {
   rootElement: HTMLElement
-  pageManager: PageManager
   constructor(rootElement: HTMLElement, heightStatusBar: number, heightPagination: number, heightDocks: number) {
     super(heightStatusBar, heightPagination, heightDocks)
     this.rootElement = rootElement
-    this.pageManager = new PageManager(this.pages)
   }
 
   render() {
