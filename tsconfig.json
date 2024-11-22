@@ -5,11 +5,7 @@
     "moduleResolution": "node",
     "types": ["node"],
     "baseUrl": ".",
-    "paths": {
-      "@utils/*": ["src/utils/*"],
-      "@core/*": ["src/core/*"],
-      "@constants/*": ["src/constants/*"]
-    },
+    "paths": {},
     "strict": true,
     "esModuleInterop": true
   },

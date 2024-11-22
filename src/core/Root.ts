@@ -1,6 +1,7 @@
-import { $ } from '@utils/domUtils'
+import { $ } from 'src/utils/domUtils'
 import { Variables } from './Variables'
 import { TemplateResult } from 'lit-html'
+import { CoreNative } from './Data'
 
 export default abstract class Root {
   screenWidth: number
@@ -11,6 +12,7 @@ export default abstract class Root {
   heightStatusBar: number
   heightPagination: number
   heightDocks: number
+  coreNative: CoreNative
   constructor(heightStatusBar: number, heightPagination: number, heightDocks: number) {
     this.screenWidth = window.innerWidth
     this.screenHeight = window.innerHeight
@@ -20,9 +22,12 @@ export default abstract class Root {
     this.heightStatusBar = heightStatusBar
     this.heightPagination = heightPagination
     this.heightDocks = heightDocks
+    this.coreNative = new CoreNative()
   }
 
-  init() {
+  async init() {
+    console.log('hihi', await this.coreNative.getAllDapp())
+
     console.log('this root: ', this)
     const elementStatusBar = $('#status-bar')
     console.log('elementStatusBar root: ', elementStatusBar)

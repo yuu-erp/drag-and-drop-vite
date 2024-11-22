@@ -1,4 +1,4 @@
-import { $ } from '@utils/domUtils'
+import { $ } from 'src/utils/domUtils'
 import layouts, { DeviceType } from './layouts'
 export function initApp() {
   const deviceType = window.deviceType || 'mobile'

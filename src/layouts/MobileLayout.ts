@@ -1,5 +1,5 @@
-import { HEIGHT_DOCK_MOBILE, HEIGHT_PAGINATION_MOBILE, HEIGHT_STATUS_BAR_MOBILE } from '@constants/index'
-import Layout from '../core/Layout'
+import { HEIGHT_DOCK_MOBILE, HEIGHT_PAGINATION_MOBILE, HEIGHT_STATUS_BAR_MOBILE } from 'src/constants/index'
+import Layout from 'src/core/Layout'
 import { html, TemplateResult } from 'lit-html'
 
 export default class MobileLayout extends Layout {
@@ -12,10 +12,10 @@ export default class MobileLayout extends Layout {
   }
 
   renderHtmlPagination(): TemplateResult<1> {
-    return html` <div>renderHtmlPagination</div> `
+    return html` <div id="pageNavigationBar">renderHtmlPagination</div> `
   }
 
   renderHtmlDock(): TemplateResult<1> {
-    return html` <div>renderHtmlDock</div> `
+    return html` <div id="footer">renderHtmlDock</div> `
   }
 }

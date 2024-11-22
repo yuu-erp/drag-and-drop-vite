@@ -1,4 +1,4 @@
-import Root from '@core/Root'
+import Root from 'src/core/Root'
 import { html, render as renderLitHTML, TemplateResult } from 'lit-html'
 
 export default abstract class Layout extends Root {
