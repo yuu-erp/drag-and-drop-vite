@@ -6,6 +6,7 @@ export default class Root {
   screenHeight: number
   variables: Variables
   isEdit: boolean
+  isSelect: boolean
   heightStatusBar: number
   heightPagination: number
   heightDocks: number
@@ -14,6 +15,7 @@ export default class Root {
     this.screenHeight = window.innerHeight
     this.variables = new Variables()
     this.isEdit = this.variables.get('isEdit') || false
+    this.isSelect = this.variables.get('isSelect') || false
     this.heightStatusBar = heightStatusBar
     this.heightPagination = heightPagination
     this.heightDocks = heightDocks
@@ -23,5 +25,12 @@ export default class Root {
     console.log('this root: ', this)
     const elementStatusBar = $('#status-bar')
     console.log('elementStatusBar root: ', elementStatusBar)
+  }
+
+  onOpenSelect() {
+    this.variables.set('isSelect', true, true)
+  }
+  onCloseSelect() {
+    this.variables.set('isSelect', false, true)
   }
 }
