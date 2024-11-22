@@ -8,9 +8,8 @@ export class SystemCore {
   }
 
   removeEventListener = (command: string, fn: Function) => {
-    if (this.listenData[command]) {
-      this.listenData[command] = this.listenData[command].filter((f) => f !== fn)
-    }
+    if (!this.listenData[command]) return
+    this.listenData[command] = this.listenData[command].filter((f) => f !== fn)
   }
 
   removeAllEventListeners = (command: string) => {
@@ -51,20 +50,14 @@ export class SystemCore {
 
   private init = () => {
     window.addEventListener('message', (e) => {
-      console.log('duy receive ---> ', e.data)
       const { data, command, isSocket, type } = e.data
-
       if (type) return
-
       if (!isSocket) {
         const cb = this.receiveData[command]
-
-        if (typeof cb === 'function') {
-          //listen event have 1 level data nested
-          cb(data)
-          this.pendingCommands.delete(command)
-          delete this.receiveData[command]
-        }
+        if (typeof cb !== 'function') return
+        cb(data)
+        this.pendingCommands.delete(command)
+        delete this.receiveData[command]
         return
       }
 
