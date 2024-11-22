@@ -11,7 +11,6 @@ export default class Root {
   heightStatusBar: number
   heightPagination: number
   heightDocks: number
-  coreNative: CoreNative
   constructor(heightStatusBar: number, heightPagination: number, heightDocks: number) {
     this.screenWidth = window.innerWidth
     this.screenHeight = window.innerHeight
@@ -21,12 +20,9 @@ export default class Root {
     this.heightStatusBar = heightStatusBar
     this.heightPagination = heightPagination
     this.heightDocks = heightDocks
-    this.coreNative = new CoreNative()
   }
 
   async init() {
-    console.log('hihi', await this.coreNative.getAllDapp())
-
     console.log('this root: ', this)
     const elementStatusBar = $('#status-bar')
     console.log('elementStatusBar root: ', elementStatusBar)

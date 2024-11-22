@@ -1,7 +1,7 @@
+import { html, TemplateResult } from 'lit-html'
 import { HEIGHT_DOCK_MOBILE, HEIGHT_PAGINATION_MOBILE, HEIGHT_STATUS_BAR_MOBILE } from 'src/constants/index'
 import Layout from 'src/core/Layout'
-import { html, TemplateResult } from 'lit-html'
-import { styleText } from 'util'
+
 export default class MobileLayout extends Layout {
   constructor(rootElement: HTMLElement) {
     super(rootElement, HEIGHT_STATUS_BAR_MOBILE, HEIGHT_PAGINATION_MOBILE, HEIGHT_DOCK_MOBILE)

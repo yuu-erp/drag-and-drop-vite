@@ -23,3 +23,9 @@ export function queryAll(selector: string): HTMLElement[] {
 export function addClass(el: HTMLElement, className: string): void {
   el.classList.add(className)
 }
+
+export function styleElement(query: string, css: Partial<CSSStyleDeclaration>) {
+  const element = $(query)
+  if (!element) return
+  Object.entries(css).forEach(([key, value]: any) => (element.style[key] = value))
+}

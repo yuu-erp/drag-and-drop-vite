@@ -8,7 +8,6 @@ export class CoreNative {
   }
 
   async getAllDapp() {
-    const res = await this.core.send('getDataDApp')
-    console.log('all', res)
+    return await this.core.send('getDataDApp')
   }
 }
