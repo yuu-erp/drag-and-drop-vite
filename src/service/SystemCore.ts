@@ -7,23 +7,23 @@ export class SystemCore {
     this.init()
   }
 
-  removeEventListener = (command: string, fn: Function) => {
+  removeEventListener(command: string, fn: Function) {
     if (!this.listenData[command]) return
     this.listenData[command] = this.listenData[command].filter((f) => f !== fn)
   }
 
-  removeAllEventListeners = (command: string) => {
+  removeAllEventListeners(command: string) {
     delete this.listenData[command]
   }
 
-  on = async (command: string, fn: Function) => {
+  async on(command: string, fn: Function) {
     if (!this.listenData[command]) {
       this.listenData[command] = []
     }
     this.listenData[command].push(fn)
   }
 
-  send = async (command: string, value = {}) => {
+  async send(command: string, value = {}) {
     if (this.pendingCommands.has(command)) return { data: `Command "${command}" is already pending.` }
     console.log('Send data: ', command, value)
     this.pendingCommands.add(command)
@@ -48,7 +48,7 @@ export class SystemCore {
     return response.data
   }
 
-  private init = () => {
+  private init() {
     window.addEventListener('message', (e) => {
       const { data, command, isSocket, type } = e.data
       if (type) return

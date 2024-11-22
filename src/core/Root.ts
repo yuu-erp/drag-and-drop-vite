@@ -32,14 +32,6 @@ export default class Root {
     console.log('elementStatusBar root: ', elementStatusBar)
   }
 
-  onOpenSelect() {
-    this.variables.set('isSelect', true, true)
-  }
-
-  onCloseSelect() {
-    this.variables.set('isSelect', false, true)
-  }
-
   /**
    * Cập nhật trạng thái hiển thị của phần tử có ID `#loading`.
    * Nếu phần tử không tồn tại trong DOM, hàm sẽ ném lỗi.
@@ -49,7 +41,7 @@ export default class Root {
    */
   setLoading(value: boolean) {
     const elementLoading = $('#loading')
-    if (!elementLoading) throw Error('#loading is not defined')
+    if (!elementLoading) throw Error('id #loading is not defined')
     elementLoading.style.display = value ? 'flex' : 'none'
   }
 }
