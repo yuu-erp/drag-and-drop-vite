@@ -12,6 +12,7 @@ export default class Root {
   heightPagination: number
   heightDocks: number
   coreNative: CoreNative
+  pages: Dapp[][]
   constructor(heightStatusBar: number, heightPagination: number, heightDocks: number) {
     this.screenWidth = window.innerWidth
     this.screenHeight = window.innerHeight
@@ -22,6 +23,7 @@ export default class Root {
     this.heightPagination = heightPagination
     this.heightDocks = heightDocks
     this.coreNative = new CoreNative()
+    this.pages = [[], [], []]
   }
 
   async init() {

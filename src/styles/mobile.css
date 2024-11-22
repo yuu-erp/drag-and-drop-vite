@@ -1,3 +1,8 @@
 #renderHtmlDappMain.mobile {
   flex: 1;
 }
+
+#renderHtmlDappMain .pages {
+  height: 100%;
+  background-color: bisque;
+}

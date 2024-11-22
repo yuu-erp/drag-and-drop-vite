@@ -12,7 +12,11 @@ export default class MobileLayout extends Layout {
   }
 
   renderHtmlDappMain(): TemplateResult<1> {
-    return html` <div id="renderHtmlDappMain" class="mobile">renderHtmlDappMain</div> `
+    return html`
+      <div id="renderHtmlDappMain" style="width: ${this.screenWidth}px" class="mobile">
+        ${this.pageManager.renderHtmlSlicePage()}
+      </div>
+    `
   }
 
   renderHtmlPagination(): TemplateResult<1> {

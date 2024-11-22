@@ -1,12 +1,14 @@
 import Root from 'src/core/Root'
 import { html, render as renderLitHTML, TemplateResult } from 'lit-html'
+import PageManager from './PageManager'
 
 export default abstract class Layout extends Root {
   rootElement: HTMLElement
-
+  pageManager: PageManager
   constructor(rootElement: HTMLElement, heightStatusBar: number, heightPagination: number, heightDocks: number) {
     super(heightStatusBar, heightPagination, heightDocks)
     this.rootElement = rootElement
+    this.pageManager = new PageManager(this.pages)
   }
 
   render() {
