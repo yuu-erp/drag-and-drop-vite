@@ -3,4 +3,6 @@ export default class Dapp {
   constructor(dapp: Dapp) {
     this.dapp = dapp
   }
+
+  excute() {}
 }

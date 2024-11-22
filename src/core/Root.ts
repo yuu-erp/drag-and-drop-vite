@@ -1,5 +1,5 @@
 import { $ } from 'src/utils/domUtils'
-import { CoreNative } from './Data'
+import { CoreNative } from './CoreNative'
 import { Variables } from './Variables'
 
 export default class Root {

@@ -8,7 +8,7 @@ export default class MobileLayout extends Layout {
   }
 
   renderHtmlStatusBar(): TemplateResult<1> {
-    return html` <div id="status-bar">renderHtmlStatusBar</div> `
+    return html` <div id="status-bar" style="height: ${HEIGHT_STATUS_BAR_MOBILE}px">renderHtmlStatusBar</div> `
   }
 
   renderHtmlPagination(): TemplateResult<1> {
