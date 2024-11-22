@@ -1,4 +1,4 @@
-import { APP_VARIABLE_LOCAL } from '../../constants'
+import { APP_VARIABLE_LOCAL } from '../constants'
 
 export class Variables<T = any> {
   private variables: Map<string, { value: T; persistent: boolean }>

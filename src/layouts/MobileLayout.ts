@@ -1,8 +1,21 @@
-import { HEIGHT_DOCK_MOBILE, HEIGHT_PAGINATION_MOBILE, HEIGHT_STATUS_BAR_MOBILE } from '../constants'
-import Layout from './Layout'
+import { HEIGHT_DOCK_MOBILE, HEIGHT_PAGINATION_MOBILE, HEIGHT_STATUS_BAR_MOBILE } from '@constants/index'
+import Layout from '../core/Layout'
+import { html, TemplateResult } from 'lit-html'
 
 export default class MobileLayout extends Layout {
   constructor(rootElement: HTMLElement) {
     super(rootElement, HEIGHT_STATUS_BAR_MOBILE, HEIGHT_PAGINATION_MOBILE, HEIGHT_DOCK_MOBILE)
+  }
+
+  renderHtmlStatusBar(): TemplateResult<1> {
+    return html` <div id="status-bar">renderHtmlStatusBar</div> `
+  }
+
+  renderHtmlPagination(): TemplateResult<1> {
+    return html` <div>renderHtmlPagination</div> `
+  }
+
+  renderHtmlDock(): TemplateResult<1> {
+    return html` <div>renderHtmlDock</div> `
   }
 }
