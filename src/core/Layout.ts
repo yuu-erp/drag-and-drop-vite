@@ -4,7 +4,7 @@ import Draggable from './Draggable'
 export default abstract class Layout extends Draggable {
   rootElement: HTMLElement
   constructor(rootElement: HTMLElement, heightStatusBar: number, heightPagination: number, heightDocks: number) {
-    super(heightStatusBar, heightPagination, heightDocks)
+    super(rootElement, heightStatusBar, heightPagination, heightDocks)
     this.rootElement = rootElement
   }
 
@@ -13,7 +13,14 @@ export default abstract class Layout extends Draggable {
   }
 
   private renderApp() {
-    return html`${this.renderHtmlStatusBar()}${this.renderHtmlDappMain()}${this.renderHtmlPagination()}${this.renderHtmlDock()}${this.renderHtmlLoading()}`
+    const sections = [
+      this.renderHtmlStatusBar(),
+      this.renderHtmlDappMain(),
+      this.renderHtmlPagination(),
+      this.renderHtmlDock(),
+      this.renderHtmlLoading()
+    ]
+    return html`${sections}`
   }
 
   private renderHtmlLoading(): TemplateResult<1> {

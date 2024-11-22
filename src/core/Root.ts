@@ -1,30 +1,33 @@
 import { $ } from 'src/utils/domUtils'
 import { Variables } from './Variables'
-
+import { data } from '../constants/mock'
 export default class Root {
   screenWidth: number
   screenHeight: number
   isTouch: boolean
-  variables: Variables
-  isEdit: boolean
-  isSelect: boolean
   heightStatusBar: number
   heightPagination: number
   heightDocks: number
+  variables: Variables
+  isEdit: boolean
+  isSelect: boolean
+  currentPage: number
+  pages: Dapp[][]
   constructor(heightStatusBar: number, heightPagination: number, heightDocks: number) {
     this.screenWidth = window.innerWidth
     this.screenHeight = window.innerHeight
     this.isTouch = 'ontouchstart' in window
-    this.variables = new Variables()
-    this.isEdit = this.variables.get('isEdit') || false
-    this.isSelect = this.variables.get('isSelect') || false
     this.heightStatusBar = heightStatusBar
     this.heightPagination = heightPagination
     this.heightDocks = heightDocks
-    this.init()
+    this.variables = new Variables()
+    this.isEdit = this.variables.get('isEdit') || false
+    this.isSelect = this.variables.get('isSelect') || false
+    this.currentPage = this.variables.get('currentPage') || 0
+    this.pages = data
   }
 
-  private async init() {
+  async init() {
     console.log('Root init', this)
   }
 
