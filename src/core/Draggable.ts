@@ -51,7 +51,6 @@ export default class Draggable extends Root {
 
     const newX = event.clientX - this.offsetX
     const newY = event.clientY - this.offsetY
-
     // @ts-ignore
     // this.updateElementPosition(event.target, newX, newY)
     // Lưu vị trí mới
