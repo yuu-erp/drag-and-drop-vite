@@ -1,6 +1,7 @@
 import { data } from 'src/constants/mock'
 import { $ } from 'src/utils/domUtils'
 import { Variables } from './Variables'
+import { APP_NAME_LINE_HEIGHT, APP_RAITO, COLUMN } from 'src/constants'
 export default class Root {
   screenWidth: number
   screenHeight: number
@@ -13,6 +14,10 @@ export default class Root {
   isSelect: boolean
   currentPage: number
   pages: Dapp[][]
+  appWidth: number = 0
+  paddingWidth: number = 0
+  row = 0
+
   constructor(heightStatusBar: number, heightPagination: number, heightDocks: number) {
     this.screenWidth = window.innerWidth
     this.screenHeight = window.innerHeight
@@ -28,7 +33,12 @@ export default class Root {
   }
 
   async init() {
-    console.log('Root init', this)
+    const gridElement = $('#grid')
+    const appRaito = APP_RAITO / (1 - APP_RAITO)
+    this.paddingWidth = innerWidth / (COLUMN * (appRaito + 2) + 2)
+    this.appWidth = this.paddingWidth * appRaito
+    const height = gridElement?.clientHeight || 0
+    this.row = Math.floor(height / (this.appWidth + 2 * this.paddingWidth + APP_NAME_LINE_HEIGHT))
   }
 
   /**
