@@ -1,61 +1,34 @@
 import { data } from 'src/constants/mock'
 import { $ } from 'src/utils/domUtils'
-import { CoreNative } from './CoreNative'
 import { Variables } from './Variables'
-import { TemplateResult } from 'lit-html'
-import { GridManager } from './GridManager'
-import { APP_RAITO, COLUMN } from 'src/constants'
-
-export default abstract class Root {
+export default class Root {
   screenWidth: number
   screenHeight: number
-  variables: Variables
-  isEdit: boolean
-  isSelect: boolean
+  isTouch: boolean
   heightStatusBar: number
   heightPagination: number
   heightDocks: number
-  coreNative: CoreNative
-  gridManager: GridManager
-  paddingWidth = 0
-  appWidth = 0
-  row = 0
-
-  pages: Dapp[][] = data
-  currentPage = 0
+  variables: Variables
+  isEdit: boolean
+  isSelect: boolean
+  currentPage: number
+  pages: Dapp[][]
   constructor(heightStatusBar: number, heightPagination: number, heightDocks: number) {
     this.screenWidth = window.innerWidth
     this.screenHeight = window.innerHeight
-    this.variables = new Variables()
-    this.isEdit = this.variables.get('isEdit') || false
-    this.isSelect = this.variables.get('isSelect') || false
+    this.isTouch = 'ontouchstart' in window
     this.heightStatusBar = heightStatusBar
     this.heightPagination = heightPagination
     this.heightDocks = heightDocks
-    this.coreNative = new CoreNative()
-    this.gridManager = new GridManager()
+    this.variables = new Variables()
+    this.isEdit = this.variables.get('isEdit') || false
+    this.isSelect = this.variables.get('isSelect') || false
+    this.currentPage = this.variables.get('currentPage') || 0
+    this.pages = data
   }
 
   async init() {
-    const appRaito = APP_RAITO / (1 - APP_RAITO)
-    this.paddingWidth = innerWidth / (COLUMN * (appRaito + 2) + 2)
-    this.appWidth = this.paddingWidth * appRaito
-    const lineHeight = 16
-    const gridElement = $('#grid')
-    const height = gridElement?.clientHeight || 0
-    this.row = Math.floor(height / (this.appWidth + 2 * this.paddingWidth + lineHeight))
-
-    const elementStatusBar = $('#status-bar')
-    console.log('elementStatusBar root: ', elementStatusBar)
-
-    // console.log('haha', await this.coreNative.getAllDapp())
-  }
-
-  onOpenSelect() {
-    this.variables.set('isSelect', true, true)
-  }
-  onCloseSelect() {
-    this.variables.set('isSelect', false, true)
+    console.log('Root init', this)
   }
 
   /**

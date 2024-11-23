@@ -1,21 +1,11 @@
 import { html, render as renderLitHTML, TemplateResult } from 'lit-html'
-import { data } from 'src/constants/mock'
-import Root from 'src/core/Root'
-import PageManager from './PageManager'
-import { GridManager } from './GridManager'
-export default abstract class Layout extends Root {
+import Draggable from './Draggable'
+
+export default abstract class Layout extends Draggable {
   rootElement: HTMLElement
-  pages: Dapp[][]
-  currentPage = 0
-  pageManager: PageManager
-
   constructor(rootElement: HTMLElement, heightStatusBar: number, heightPagination: number, heightDocks: number) {
-    super(heightStatusBar, heightPagination, heightDocks)
+    super(rootElement, heightStatusBar, heightPagination, heightDocks)
     this.rootElement = rootElement
-    this.pages = data
-    this.pageManager = new PageManager(data)
-
-    // this.getData()
   }
 
   render() {
@@ -29,7 +19,14 @@ export default abstract class Layout extends Root {
   }
 
   private renderApp() {
-    return html`${this.renderHtmlStatusBar()}${this.renderHtmlDappMain()}${this.renderHtmlPagination()}${this.renderHtmlDock()}${this.renderHtmlLoading()}`
+    const sections = [
+      this.renderHtmlStatusBar(),
+      this.renderHtmlDappMain(),
+      this.renderHtmlPagination(),
+      this.renderHtmlDock(),
+      this.renderHtmlLoading()
+    ]
+    return html`${sections}`
   }
 
   private renderHtmlLoading(): TemplateResult<1> {
