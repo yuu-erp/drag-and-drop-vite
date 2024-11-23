@@ -1,8 +1,12 @@
+import { data } from 'src/constants/mock'
 import { $ } from 'src/utils/domUtils'
 import { CoreNative } from './CoreNative'
 import { Variables } from './Variables'
+import { TemplateResult } from 'lit-html'
+import { GridManager } from './GridManager'
+import { APP_RAITO, COLUMN } from 'src/constants'
 
-export default class Root {
+export default abstract class Root {
   screenWidth: number
   screenHeight: number
   variables: Variables
@@ -11,6 +15,14 @@ export default class Root {
   heightStatusBar: number
   heightPagination: number
   heightDocks: number
+  coreNative: CoreNative
+  gridManager: GridManager
+  paddingWidth = 0
+  appWidth = 0
+  row = 0
+
+  pages: Dapp[][] = data
+  currentPage = 0
   constructor(heightStatusBar: number, heightPagination: number, heightDocks: number) {
     this.screenWidth = window.innerWidth
     this.screenHeight = window.innerHeight
@@ -20,12 +32,30 @@ export default class Root {
     this.heightStatusBar = heightStatusBar
     this.heightPagination = heightPagination
     this.heightDocks = heightDocks
+    this.coreNative = new CoreNative()
+    this.gridManager = new GridManager()
   }
 
   async init() {
-    console.log('this root: ', this)
+    const appRaito = APP_RAITO / (1 - APP_RAITO)
+    this.paddingWidth = innerWidth / (COLUMN * (appRaito + 2) + 2)
+    this.appWidth = this.paddingWidth * appRaito
+    const lineHeight = 16
+    const gridElement = $('#grid')
+    const height = gridElement?.clientHeight || 0
+    this.row = Math.floor(height / (this.appWidth + 2 * this.paddingWidth + lineHeight))
+
     const elementStatusBar = $('#status-bar')
     console.log('elementStatusBar root: ', elementStatusBar)
+
+    // console.log('haha', await this.coreNative.getAllDapp())
+  }
+
+  onOpenSelect() {
+    this.variables.set('isSelect', true, true)
+  }
+  onCloseSelect() {
+    this.variables.set('isSelect', false, true)
   }
 
   /**
@@ -37,7 +67,7 @@ export default class Root {
    */
   setLoading(value: boolean) {
     const elementLoading = $('#loading')
-    if (!elementLoading) throw Error('id #loading is not defined')
+    if (!elementLoading) throw Error('#loading is not defined')
     elementLoading.style.display = value ? 'flex' : 'none'
   }
 }

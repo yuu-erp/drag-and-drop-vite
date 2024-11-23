@@ -14,7 +14,8 @@ export default class MobileLayout extends Layout {
   renderHtmlDappMain(): TemplateResult<1> {
     return html`
       <div id="renderHtmlDappMain" style="width: ${this.screenWidth}px" class="mobile">
-        ${this.pageManager.renderHtmlSlicePage()}
+        <!-- ${this.pageManager.renderHtmlSlicePage()} -->
+        ${this.gridManager.renderHTMLGridMain(this.pages[this.currentPage])}
       </div>
     `
   }

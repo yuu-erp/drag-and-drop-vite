@@ -6,3 +6,10 @@
   height: 100%;
   background-color: bisque;
 }
+
+.grid {
+  height: 100%;
+  width: 100%;
+  background-color: bisque;
+  position: relative;
+}
