@@ -2,9 +2,14 @@ import { html, render as renderLitHTML, TemplateResult } from 'lit-html'
 import CalculateManagerProp from './CalculateManagerProp'
 import LayoutWithState from './LayoutWithState'
 import { $ } from 'src/utils/domUtils'
+import FetchData from './FetchData'
+import Draggable from './Draggable'
+import { sharedVariables } from './Variables'
 
 export default abstract class Layout {
   private rootElement: HTMLElement
+  private fetchData: FetchData
+  variables = sharedVariables
   layoutWithState: LayoutWithState
   constructor(
     rootElement: HTMLElement,
@@ -13,20 +18,30 @@ export default abstract class Layout {
     column: number,
     iconWidth: number
   ) {
-    this.rootElement = rootElement
-    this.layoutWithState = new LayoutWithState()
     new CalculateManagerProp({
       heightStatusBar,
       heightPagination,
       column,
       iconWidth
     })
+    new Draggable(rootElement)
+    this.rootElement = rootElement
+    this.fetchData = new FetchData()
+    this.layoutWithState = new LayoutWithState()
   }
 
-  render() {
+  async render() {
     const body = $('body')!
     renderLitHTML(this.renderHtmlLoading(), body)
-    renderLitHTML(this.renderAppRoot(), this.rootElement)
+    try {
+      await this.fetchData.fetch()
+      renderLitHTML(this.renderAppRoot(), this.rootElement)
+      this.layoutWithState.init()
+    } catch (error) {
+      console.log(error)
+    } finally {
+      this.layoutWithState.setLoading(false)
+    }
   }
 
   private renderAppRoot() {
@@ -40,7 +55,7 @@ export default abstract class Layout {
   }
 
   private renderHtmlLoading(): TemplateResult<1> {
-    return html` <div id="loading" @click="${() => this.layoutWithState.setLoading(false)}">Loading...</div> `
+    return html` <div id="loading">Loading...</div> `
   }
 
   abstract renderHtmlStatusBar(): TemplateResult<1>

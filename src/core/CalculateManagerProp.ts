@@ -57,11 +57,7 @@ export default class CalculateManager {
     return this.screenHeight - (this.heightStatusBar + this.heightPagination + this.heightDocks)
   }
 
-  private calculateRowWithColumn() {}
-
   private calculateGridWidth() {
     return this.screenWidth / this.columnNumber
   }
-
-  private calculateHeightDock() {}
 }

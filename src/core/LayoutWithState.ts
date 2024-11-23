@@ -1,12 +1,15 @@
+import StatusBar from 'src/components/statusBar/StatusBar'
 import { $ } from 'src/utils/domUtils'
-import PageManager from './PageManager'
 
 export default class LayoutWithState {
-  pageManager: PageManager
+  statusBar: StatusBar
   constructor() {
-    this.pageManager = new PageManager()
+    this.statusBar = new StatusBar()
   }
 
+  init() {
+    this.statusBar.html()
+  }
   /**
    * Cập nhật trạng thái hiển thị của phần tử có ID `#loading`.
    * Nếu phần tử không tồn tại trong DOM, hàm sẽ ném lỗi.
