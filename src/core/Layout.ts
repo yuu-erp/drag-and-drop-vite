@@ -1,5 +1,6 @@
 import { html, render as renderLitHTML, TemplateResult } from 'lit-html'
 import Draggable from './Draggable'
+import { $ } from 'src/utils/domUtils'
 
 export default abstract class Layout extends Draggable {
   rootElement: HTMLElement
@@ -9,6 +10,8 @@ export default abstract class Layout extends Draggable {
   }
 
   render() {
+    const body = $('body')!
+    renderLitHTML(this.renderHtmlLoading(), body)
     renderLitHTML(this.renderApp(), this.rootElement)
   }
 
@@ -17,8 +20,7 @@ export default abstract class Layout extends Draggable {
       this.renderHtmlStatusBar(),
       this.renderHtmlDappMain(),
       this.renderHtmlPagination(),
-      this.renderHtmlDock(),
-      this.renderHtmlLoading()
+      this.renderHtmlDock()
     ]
     return html`${sections}`
   }

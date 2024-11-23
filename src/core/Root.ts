@@ -1,6 +1,10 @@
 import { $ } from 'src/utils/domUtils'
 import { Variables } from './Variables'
 import { data } from '../constants/mock'
+
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
 export default class Root {
   screenWidth: number
   screenHeight: number
