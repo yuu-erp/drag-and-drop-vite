@@ -77,3 +77,5 @@ export class Variables<T = any> {
     localStorage.removeItem(APP_VARIABLE_LOCAL)
   }
 }
+
+export const sharedVariables = new Variables()

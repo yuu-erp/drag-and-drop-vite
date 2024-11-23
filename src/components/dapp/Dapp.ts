@@ -1,3 +1,4 @@
+import { html } from 'lit-html'
 import './dapp.css'
 export default class Dapp {
   dapp: Dapp
@@ -5,5 +6,7 @@ export default class Dapp {
     this.dapp = dapp
   }
 
-  excute() {}
+  excute() {
+    return html``
+  }
 }
