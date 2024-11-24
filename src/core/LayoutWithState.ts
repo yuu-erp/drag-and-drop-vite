@@ -1,15 +1,35 @@
-import StatusBar from 'src/components/statusBar/StatusBar'
 import { $ } from 'src/utils/domUtils'
+import CalculateManager from './CalculateManagerProp'
+import Draggable from './Draggable'
+import StatusBar from 'src/components/StatusBar'
+import PageManager from './PageManager'
+import Pagination from 'src/components/Pagination'
 
-export default class LayoutWithState {
+export default class LayoutWithState extends CalculateManager {
+  rootElement: HTMLElement
   statusBar: StatusBar
-  constructor() {
+  pageManager: PageManager
+  pagination: Pagination
+  constructor(
+    rootElement: HTMLElement,
+    heightStatusBar: number,
+    heightPagination: number,
+    column: number,
+    iconWidth: number
+  ) {
+    super({
+      heightPagination,
+      heightStatusBar,
+      column,
+      iconWidth
+    })
+    this.rootElement = rootElement
     this.statusBar = new StatusBar()
+    this.pageManager = new PageManager()
+    this.pagination = new Pagination()
+    new Draggable(rootElement, this.statusBar, this.pageManager, this.pageManager)
   }
 
-  init() {
-    this.statusBar.html()
-  }
   /**
    * Cập nhật trạng thái hiển thị của phần tử có ID `#loading`.
    * Nếu phần tử không tồn tại trong DOM, hàm sẽ ném lỗi.

@@ -1,11 +1,16 @@
+import { html, TemplateResult } from 'lit-html'
 import { sharedVariables } from './Variables'
 
 export default class PageManager {
   private variables = sharedVariables
-  pages: Dapp[][]
+  private pages: Dapp[][]
   constructor() {
-    this.pages = this.variables.get('pages') ?? []
+    this.pages = this.variables.get('pages')
   }
 
-  scrollPage() {}
+  render(): TemplateResult<1> {
+    return html`
+      <div class="main_grid">${this.pages.map((_page, index) => html`<div class="main_grid-page">${index}</div>`)}</div>
+    `
+  }
 }

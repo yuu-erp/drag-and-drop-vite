@@ -7,7 +7,7 @@ export type CalculateManagerProp = {
   iconWidth: number
 }
 export default class CalculateManager {
-  private variables = sharedVariables
+  variables = sharedVariables
   private screenWidth: number
   private screenHeight: number
 
@@ -50,7 +50,6 @@ export default class CalculateManager {
     this.variables.set('heightDocks', this.heightDocks)
 
     this.variables.set('gridWidth', this.gridWidth)
-    console.log(this)
   }
 
   private calculateHeightMain() {

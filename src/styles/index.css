@@ -14,9 +14,22 @@
   width: 100%;
   background-color: aqua;
   border: 1px solid black;
+  overflow: hidden;
+}
+
+#main .main_grid {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#main .main_grid-page {
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 100%;
+  border: 1px solid black;
 }
 
 #loading {
