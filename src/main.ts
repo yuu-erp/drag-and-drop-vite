@@ -1,5 +1,6 @@
 import { initApp } from './app'
-import './style.css'
+import './styles/index.css'
+import './styles/reset.css'
 
 document.addEventListener('DOMContentLoaded', () => {
   initApp()

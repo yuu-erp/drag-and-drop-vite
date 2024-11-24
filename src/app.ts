@@ -1,6 +1,8 @@
-import MobileLayout from './layouts/MobileLayout'
-
+import Layout from './layouts'
+import { $ } from './utils/domUtils'
 export function initApp() {
-  const rootElement = document.querySelector('#main')! as HTMLElement
-  new MobileLayout(rootElement).init()
+  const rootElement = $('#root')!
+  const layout = new Layout(rootElement)
+  layout.render()
+  console.log('layoutRoot: ', layout.variables.getAll())
 }
