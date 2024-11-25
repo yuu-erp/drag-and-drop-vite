@@ -40,13 +40,7 @@ export default class Layout extends LayoutWithState {
 
   private renderHtmlStatusBar(): TemplateResult<1> {
     return html`
-      <div
-        id="status-bar"
-        @click="${() => console.log('123')}"
-        style="height: ${this.variables.get('heightStatusBar')}px"
-      >
-        ${this.statusBar.render()}
-      </div>
+      <div id="status-bar" style="height: ${this.variables.get('heightStatusBar')}px">${this.statusBar.render()}</div>
     `
   }
 

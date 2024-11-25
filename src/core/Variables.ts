@@ -1,11 +1,19 @@
 import { APP_VARIABLE_LOCAL } from '../constants'
 
 export class Variables<T = any> {
+  private static instance: Variables // Singleton instance
   private variables: Map<string, { value: T; persistent: boolean }>
 
-  constructor() {
+  private constructor() {
     this.variables = new Map()
     this._loadFromStorage()
+  }
+
+  static getInstance(): Variables {
+    if (!Variables.instance) {
+      Variables.instance = new Variables()
+    }
+    return Variables.instance
   }
 
   set(key: string, value: T, persistent: boolean = false): void {
@@ -78,4 +86,5 @@ export class Variables<T = any> {
   }
 }
 
-export const sharedVariables = new Variables()
+// Sử dụng Singleton để chia sẻ biến
+export const sharedVariables = Variables.getInstance()
