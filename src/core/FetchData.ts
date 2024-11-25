@@ -12,7 +12,7 @@ export default class FetchData {
 
   async init() {
     await wait(1000)
-    this.pages = [[], [], [], [], [], [], [], [], [], []]
+    this.pages = [[], [], []]
     this.variables.set('pages', this.pages, true)
   }
 

@@ -1,5 +1,5 @@
 // requestAnimationFrame for Smart Animating http://goo.gl/sx5sts
-const requestAnimFrame = (function () {
+export const requestAnimFrame = (function () {
   return (
     window.requestAnimationFrame ||
     // @ts-ignore

@@ -1,9 +1,5 @@
-import { DeviceType } from 'src/layouts'
-
 declare global {
-  interface Window {
-    deviceType: DeviceType
-  }
+  interface Window {}
   interface DappPosition {
     x: number
     y: number
