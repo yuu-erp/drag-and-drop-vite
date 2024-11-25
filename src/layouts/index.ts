@@ -5,7 +5,7 @@ import LayoutWithState from 'src/core/LayoutWithState'
 import { $ } from 'src/utils/domUtils'
 
 export default class Layout extends LayoutWithState {
-  fetchData: FetchData
+  private fetchData: FetchData
   constructor(rootElement: HTMLElement) {
     super(rootElement, HEIGHT_STATUS_BAR_MOBILE, HEIGHT_PAGINATION_MOBILE, APP_COLUMN_MOBILE, ICON_WIDTH)
     this.fetchData = new FetchData()
