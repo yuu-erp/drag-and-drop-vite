@@ -12,11 +12,11 @@ export default class PageManager {
 
   render(): TemplateResult<1> {
     return html`
-      <div class="main_grid" style="width: ${this.variables.get('screenWidth') * this.pages.length}px">
-        ${this.pages.map(
+      <div id="main-grid" class="main_grid" style="width: ${this.variables.get('screenWidth') * this.pages.length}px">
+        <!-- ${this.pages.map(
           (_page, index) =>
             html`<div class="main_grid-page" style="width: ${this.variables.get('screenWidth')}px">${index}</div>`
-        )}
+        )} -->
       </div>
     `
   }

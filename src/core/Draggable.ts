@@ -3,6 +3,7 @@ import StatusBar from 'src/components/StatusBar'
 import PageManager from './PageManager'
 import { $ } from 'src/utils/domUtils'
 import { sharedVariables } from './Variables'
+import DappManager from './DappManager'
 
 export default class Draggable {
   private static instance: Draggable | null = null
@@ -22,7 +23,8 @@ export default class Draggable {
     private rootElement: HTMLElement,
     private statusBar: StatusBar,
     private pageManager: PageManager,
-    private pagination: Pagination
+    private pagination: Pagination,
+    private dappManager: DappManager
   ) {
     this.isTouch = 'ontouchstart' in window
     this.initializeEventListeners()
@@ -33,10 +35,11 @@ export default class Draggable {
     rootElement: HTMLElement,
     statusBar: StatusBar,
     pageManager: PageManager,
-    pagination: Pagination
+    pagination: Pagination,
+    dappManager: DappManager
   ): Draggable {
     if (!Draggable.instance) {
-      Draggable.instance = new Draggable(rootElement, statusBar, pageManager, pagination)
+      Draggable.instance = new Draggable(rootElement, statusBar, pageManager, pagination, dappManager)
     }
     return Draggable.instance
   }

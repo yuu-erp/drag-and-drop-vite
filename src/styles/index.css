@@ -19,8 +19,9 @@
 
 #main .main_grid {
   height: 100%;
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
+  position: relative;
 }
 
 #main .main_grid-page {
@@ -87,6 +88,11 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.dapp {
+  position: absolute;
+  background: red;
 }
 
 /* Theo breakpoint */

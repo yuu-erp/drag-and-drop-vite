@@ -4,33 +4,38 @@ import StatusBar from 'src/components/StatusBar'
 import Pagination from 'src/components/Pagination'
 import CalculateManager from './CalculateManager'
 import PageManager from './PageManager'
+import DappManager from './DappManager'
 
 export default class LayoutWithState extends CalculateManager {
   rootElement: HTMLElement
   statusBar: StatusBar
   pageManager: PageManager
   pagination: Pagination
+  dappManager: DappManager
 
   constructor(
     rootElement: HTMLElement,
     heightStatusBar: number,
     heightPagination: number,
     column: number,
-    iconWidth: number
+    iconWidth: number,
+    sitePadding: number
   ) {
     super({
       heightPagination,
       heightStatusBar,
       column,
-      iconWidth
+      iconWidth,
+      sitePadding
     })
     this.rootElement = rootElement
     this.statusBar = new StatusBar()
     this.pageManager = new PageManager()
     this.pagination = new Pagination()
+    this.dappManager = new DappManager()
 
     // Initialize Draggable
-    Draggable.getInstance(rootElement, this.statusBar, this.pageManager, this.pagination)
+    Draggable.getInstance(rootElement, this.statusBar, this.pageManager, this.pagination, this.dappManager)
   }
 
   /**
@@ -49,7 +54,13 @@ export default class LayoutWithState extends CalculateManager {
    * Cleanup resources when LayoutWithState is no longer needed.
    */
   destroy() {
-    Draggable.getInstance(this.rootElement, this.statusBar, this.pageManager, this.pagination).destroy()
+    Draggable.getInstance(
+      this.rootElement,
+      this.statusBar,
+      this.pageManager,
+      this.pagination,
+      this.dappManager
+    ).destroy()
     console.log('LayoutWithState destroyed')
   }
 }

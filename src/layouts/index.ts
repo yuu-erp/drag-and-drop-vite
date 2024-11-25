@@ -1,5 +1,11 @@
 import { html, render as renderLitHTML, TemplateResult } from 'lit-html'
-import { APP_COLUMN_MOBILE, HEIGHT_PAGINATION_MOBILE, HEIGHT_STATUS_BAR_MOBILE, ICON_WIDTH } from 'src/constants'
+import {
+  APP_COLUMN_MOBILE,
+  HEIGHT_PAGINATION_MOBILE,
+  HEIGHT_STATUS_BAR_MOBILE,
+  ICON_WIDTH,
+  SITE_PADDING_MOBILE
+} from 'src/constants'
 import FetchData from 'src/core/FetchData'
 import LayoutWithState from 'src/core/LayoutWithState'
 import { $ } from 'src/utils/domUtils'
@@ -7,7 +13,14 @@ import { $ } from 'src/utils/domUtils'
 export default class Layout extends LayoutWithState {
   fetchData: FetchData
   constructor(rootElement: HTMLElement) {
-    super(rootElement, HEIGHT_STATUS_BAR_MOBILE, HEIGHT_PAGINATION_MOBILE, APP_COLUMN_MOBILE, ICON_WIDTH)
+    super(
+      rootElement,
+      HEIGHT_STATUS_BAR_MOBILE,
+      HEIGHT_PAGINATION_MOBILE,
+      APP_COLUMN_MOBILE,
+      ICON_WIDTH,
+      SITE_PADDING_MOBILE
+    )
     this.fetchData = new FetchData()
   }
 
@@ -17,6 +30,7 @@ export default class Layout extends LayoutWithState {
     try {
       await this.fetchData.init()
       renderLitHTML(this.renderApp(), this.rootElement)
+      this.dappManager.getEle()
     } catch (error) {
       console.error(error)
     } finally {

@@ -5,6 +5,7 @@ export type CalculateManagerProp = {
   heightPagination: number
   column: number
   iconWidth: number
+  sitePadding: number
 }
 export default class CalculateManager {
   variables = sharedVariables
@@ -19,8 +20,9 @@ export default class CalculateManager {
   private columnNumber: number
   private iconWidth: number
   private gridWidth: number
+  private sitePadding: number
 
-  constructor({ heightStatusBar, heightPagination, column, iconWidth }: CalculateManagerProp) {
+  constructor({ heightStatusBar, heightPagination, column, iconWidth, sitePadding }: CalculateManagerProp) {
     this.screenWidth = window.innerWidth
     this.screenHeight = window.innerHeight
 
@@ -32,6 +34,7 @@ export default class CalculateManager {
     this.columnNumber = column
     this.iconWidth = iconWidth
     this.gridWidth = 0
+    this.sitePadding = sitePadding
 
     this.init()
   }
@@ -50,6 +53,9 @@ export default class CalculateManager {
     this.variables.set('heightDocks', this.heightDocks)
 
     this.variables.set('gridWidth', this.gridWidth)
+    this.variables.set('iconWidth', this.iconWidth)
+    this.variables.set('sitePadding', this.sitePadding)
+    this.variables.set('columnNumber', this.columnNumber)
   }
 
   private calculateHeightMain() {

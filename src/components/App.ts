@@ -1,9 +1,38 @@
-import { html, TemplateResult } from 'lit-html'
+import { html } from 'lit-html'
+import { sharedVariables } from 'src/core/Variables'
 
-export default class App {
-  constructor() {}
+export class DApp {
+  variables = sharedVariables
+  gridWidth = 0
+  padding = 0
+  row = 0
+  iconWidth = this.variables.get('iconWidth')
+  sitePadding = this.variables.get('sitePadding')
+  columnNumber = this.variables.get('columnNumber')
 
-  render(): TemplateResult<1> {
-    return html``
+  constructor() {
+    this.calSize()
+  }
+
+  private calSize() {
+    this.gridWidth = (innerWidth - 2 * this.sitePadding) / this.columnNumber
+    this.padding = this.gridWidth - this.iconWidth
+    // console.log('sitePadding', this.sitePadding)
+    // console.log('sitePadding 22', this.sitePadding)
+  }
+
+  setRow(height: number) {
+    this.row = Math.floor(height / this.gridWidth)
+  }
+
+  htmlDApp(page: number, x: number, y: number) {
+    const left = page * innerWidth + this.sitePadding + x * this.gridWidth + this.padding
+    const top = y * this.gridWidth + this.padding
+
+    return html`<div
+      id=""
+      class="dapp"
+      style="top:${top}px; left:${left}px; width:${this.iconWidth}px; height:${this.iconWidth}px"
+    ></div>`
   }
 }
