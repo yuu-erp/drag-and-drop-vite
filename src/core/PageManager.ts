@@ -6,18 +6,13 @@ import { sharedVariables } from './Variables'
 
 export default class PageManager {
   private variables = sharedVariables
-  private pages: Dapp[][] = this.variables.get('pages') ?? []
   currentPage: number = this.variables.get('currentPage') ?? 0
   constructor() {}
 
   render(): TemplateResult<1> {
+    const pages = this.variables.get('pages')
     return html`
-      <div id="main-grid" class="main_grid" style="width: ${this.variables.get('screenWidth') * this.pages.length}px">
-        <!-- ${this.pages.map(
-          (_page, index) =>
-            html`<div class="main_grid-page" style="width: ${this.variables.get('screenWidth')}px">${index}</div>`
-        )} -->
-      </div>
+      <div id="main-grid" class="main_grid" style="width: ${this.variables.get('screenWidth') * pages.length}px"></div>
     `
   }
 
@@ -28,6 +23,7 @@ export default class PageManager {
       console.warn('#main element not found in DOM')
       return
     }
+    const pages = this.variables.get('pages')
 
     const slideWidth = this.variables.get('screenWidth')
     const currentPosition = elementMain.scrollLeft
@@ -36,7 +32,7 @@ export default class PageManager {
     let targetSlide: number
     if (targetPage !== undefined) {
       // Snap tới trang được chỉ định
-      targetSlide = Math.min(Math.max(targetPage, 0), this.pages.length - 1)
+      targetSlide = Math.min(Math.max(targetPage, 0), pages.length - 1)
     } else {
       // Snap dựa trên vị trí cuộn
       const nearestSlide = Math.round(currentPosition / slideWidth)
@@ -45,7 +41,7 @@ export default class PageManager {
       } else {
         targetSlide = nearestSlide
       }
-      targetSlide = Math.min(Math.max(targetSlide, 0), this.pages.length - 1)
+      targetSlide = Math.min(Math.max(targetSlide, 0), pages.length - 1)
     }
 
     this.currentPage = targetSlide
@@ -65,6 +61,7 @@ export default class PageManager {
     animateScroll()
   }
 
+  // Phương thức di chuyển page
   moveScroll(to: number): void {
     const elementMain = $('#main')! as HTMLElement
     if (!elementMain) {
