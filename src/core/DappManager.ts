@@ -12,12 +12,18 @@ export default class DappManager {
   init() {}
 
   getEle() {
-    const main = $('#main-grid')!
+    const main = $('#main')
+    const b = main?.getBoundingClientRect()
+    console.log('bb', b?.width, b?.left)
+
+    console.log('mm', main?.style.left)
+
+    const mainGrid = $('#main-grid')!
     const container = mock.map((page, pageIdx) =>
       page.map((item) => this.dapp.htmlDApp(pageIdx, item.position.x, item.position.y))
     )
 
-    render(container, main)
+    render(container, mainGrid)
   }
 
   removeDapp() {}

@@ -60,7 +60,9 @@ export default class Layout extends LayoutWithState {
 
   private renderHtmlDappMain(): TemplateResult<1> {
     return html`
-      <div id="main" style="width: ${this.variables.get('screenWidth')}px">${this.pageManager.render()}</div>
+      <div id="main" class="container" style="width: ${this.variables.get('screenWidth')}px">
+        ${html`${this.pageManager.render()}`}
+      </div>
     `
   }
 

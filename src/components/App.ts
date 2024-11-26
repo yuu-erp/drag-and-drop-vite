@@ -1,5 +1,6 @@
 import { html } from 'lit-html'
 import { sharedVariables } from 'src/core/Variables'
+import { $ } from 'src/utils/domUtils'
 
 export class DApp {
   variables = sharedVariables
@@ -15,8 +16,9 @@ export class DApp {
   }
 
   private calSize() {
+    console.log('hop li', $('#main'))
     this.gridWidth = (innerWidth - 2 * this.sitePadding) / this.columnNumber
-    this.padding = this.gridWidth - this.iconWidth
+    this.padding = (this.gridWidth - this.iconWidth) / 2
     // console.log('sitePadding', this.sitePadding)
     // console.log('sitePadding 22', this.sitePadding)
   }
