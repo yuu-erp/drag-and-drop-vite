@@ -3,26 +3,21 @@ import { DApp } from 'src/components/App'
 import { mock } from 'src/constants/mock'
 import { $ } from 'src/utils/domUtils'
 
-export default class DappManager {
-  dapp = new DApp()
+export default class DappManager extends DApp {
   constructor() {
+    super()
     this.init()
   }
 
   init() {}
 
-  getEle() {
-    const main = $('#main')
-    const b = main?.getBoundingClientRect()
-    console.log('bb', b?.width, b?.left)
-
-    console.log('mm', main?.style.left)
-
+  renderAllDapp() {
     const mainGrid = $('#main-grid')!
-    const container = mock.map((page, pageIdx) =>
-      page.map((item) => this.dapp.htmlDApp(pageIdx, item.position.x, item.position.y))
-    )
+    this.containerHeight = mainGrid.getBoundingClientRect().height
 
+    const container = mock.map((page, pageIdx) =>
+      page.map(({ position, ...item }) => this.htmlDApp(pageIdx, [position.x, position.y], item.bundleId))
+    )
     render(container, mainGrid)
   }
 

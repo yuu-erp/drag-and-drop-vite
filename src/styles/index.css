@@ -93,6 +93,7 @@
 .dapp {
   position: absolute;
   background: red;
+  z-index: 100;
 }
 
 /* Theo breakpoint */

@@ -19,14 +19,14 @@ export default class LayoutWithState extends CalculateManager {
     heightPagination: number,
     column: number,
     iconWidth: number,
-    sitePadding: number
+    raito: number
   ) {
     super({
       heightPagination,
       heightStatusBar,
       column,
       iconWidth,
-      sitePadding
+      raito
     })
     this.rootElement = rootElement
     this.statusBar = new StatusBar()

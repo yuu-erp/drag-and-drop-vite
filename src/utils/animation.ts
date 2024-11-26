@@ -27,3 +27,5 @@ export const runAnimation = (cb: Function, duration = 300) => {
   }
   requestAnimFrame(animate)
 }
+
+export const toNumber = (string: string) => +string.replace('px', '')

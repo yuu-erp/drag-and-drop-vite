@@ -1,39 +1,60 @@
 import { html } from 'lit-html'
 import { sharedVariables } from 'src/core/Variables'
-import { $ } from 'src/utils/domUtils'
+import { runAnimation, toNumber } from 'src/utils'
 
+type PostionProps = [number, number]
 export class DApp {
-  variables = sharedVariables
-  gridWidth = 0
-  padding = 0
-  row = 0
-  iconWidth = this.variables.get('iconWidth')
-  sitePadding = this.variables.get('sitePadding')
-  columnNumber = this.variables.get('columnNumber')
+  private variables = sharedVariables
+  private gridWidth = 0
+  private padding = 0
+  private row = 0
+  private prePadding = 0
+  containerHeight = 0
+
+  private iconWidth = this.variables.get('iconWidth')
+  private columnNumber = this.variables.get('columnNumber')
+  private raito = this.variables.get('raito')
 
   constructor() {
-    this.calSize()
+    this.gridWidth = this.iconWidth / this.raito
+    this.padding = (this.gridWidth * (1 - this.raito)) / 2
+    this.prePadding = (innerWidth - this.gridWidth * this.columnNumber) / 2
   }
 
-  private calSize() {
-    console.log('hop li', $('#main'))
-    this.gridWidth = (innerWidth - 2 * this.sitePadding) / this.columnNumber
-    this.padding = (this.gridWidth - this.iconWidth) / 2
-    // console.log('sitePadding', this.sitePadding)
-    // console.log('sitePadding 22', this.sitePadding)
-  }
-
-  setRow(height: number) {
-    this.row = Math.floor(height / this.gridWidth)
-  }
-
-  htmlDApp(page: number, x: number, y: number) {
-    const left = page * innerWidth + this.sitePadding + x * this.gridWidth + this.padding
+  private getPosition(page: number, position: PostionProps) {
+    const [x, y] = position
+    const left = page * innerWidth + x * this.gridWidth + this.padding + this.prePadding
     const top = y * this.gridWidth + this.padding
+    return [left, top]
+  }
 
+  findClosest(currentX: number, currentY: number): PostionProps {
+    currentX = (currentX % innerWidth) - this.prePadding
+    return [Math.round(currentX / this.gridWidth), Math.round(currentY / this.gridWidth)]
+  }
+
+  snapToXY(target: HTMLElement, page: number, position: PostionProps) {
+    const [toX, toY] = this.getPosition(page, position)
+    this.snapToPosition(target, toX, toY)
+  }
+
+  snapToPosition(target: HTMLElement, toX: number, toY: number) {
+    const style = target.style
+    const left = toNumber(style.left)
+    const top = toNumber(style.top)
+
+    runAnimation((progress: number) => {
+      target.style.left = `${left + (toX - left) * progress}px`
+      target.style.top = `${top + (toY - top) * progress}px`
+    }, 100)
+  }
+
+  htmlDApp(page: number, position: PostionProps, id: string) {
+    const [left, top] = this.getPosition(page, position)
     return html`<div
-      id=""
+      id="${id}"
       class="dapp"
+      data-type="dapp"
       style="top:${top}px; left:${left}px; width:${this.iconWidth}px; height:${this.iconWidth}px"
     ></div>`
   }

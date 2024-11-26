@@ -4,6 +4,8 @@ import PageManager from './PageManager'
 import { $ } from 'src/utils/domUtils'
 import { sharedVariables } from './Variables'
 import DappManager from './DappManager'
+import { toNumber } from 'src/utils'
+import { mock } from 'src/constants/mock'
 
 export default class Draggable {
   private static instance: Draggable | null = null
@@ -17,6 +19,11 @@ export default class Draggable {
   private startY: number = 0
   private currentX: number = 0
   private currentY: number = 0
+
+  private currentTarget: HTMLElement = null!
+  private targetPosition: [number, number] = [0, 0]
+  private isMoveMain = false
+  currentPage = 0
 
   private scrollLeft: number = 0
   private constructor(
@@ -89,6 +96,10 @@ export default class Draggable {
     this.startX = clientX
     this.startY = clientY
     this.scrollLeft = ($('#main')! as HTMLElement).scrollLeft
+    const { left, top } = (event.target as HTMLElement).style
+
+    this.targetPosition = [toNumber(left), toNumber(top)]
+    this.currentTarget = event.target as HTMLElement
   }
 
   // Event Handler: Drag Move
@@ -99,16 +110,23 @@ export default class Draggable {
     this.currentX = clientX
     this.currentY = clientY
     const target = event.target as HTMLElement
+
     // Kiểm tra xem phần tử target có phải là một dapp và có thuộc tính data-type="dapp"
     const isDapp = target.getAttribute('data-type') === 'dapp'
     // Kiểm tra thời gian di chuyển đã vượt quá 3 giây
     const timeElapsed = performance.now() - this.timeStart
-    const isMoveLongEnough = timeElapsed > 800 // 3 giây = 3000ms
+    const isMoveLongEnough = timeElapsed > 500 // 3 giây = 3000ms
     if (isDapp && isMoveLongEnough) {
+      this.isMoveMain = false
       // Di chuyển dapp nếu là dapp và đã di chuyển hơn 3 giây
       console.log('Moving dapp...')
+
+      this.currentTarget.style.left = `${this.targetPosition[0] + (this.currentX - this.startX)}px`
+      this.currentTarget.style.top = `${this.targetPosition[1] + (this, clientY - this.startY)}px`
+
       // Thực hiện logic di chuyển dapp
     } else {
+      if (!this.isMoveMain) return
       // Di chuyển page nếu không phải dapp và đã di chuyển hơn 3 giây
       console.log('Moving page...')
       // Thực hiện logic di chuyển page
@@ -118,9 +136,28 @@ export default class Draggable {
     }
   }
 
+  private endDragDapp() {
+    const { left, top } = this.currentTarget.style
+    const closest = this.dappManager.findClosest(toNumber(left), toNumber(top))
+    const [x, y] = closest
+    const [startX, startY] = this.targetPosition
+
+    for (let item of mock[this.currentPage]) {
+      const pos = item.position
+      if (pos.x !== x || pos.y !== y) continue
+      this.dappManager.snapToPosition(this.currentTarget, startX, startY)
+    }
+    this.dappManager.snapToXY(this.currentTarget, this.currentPage, closest)
+  }
+
   // Event Handler: Drag End
   private onEndDraggable = (): void => {
     if (!this.isMoving) return
+
+    if (this.currentTarget) {
+      this.endDragDapp()
+      return
+    }
 
     this.isMoving = false
 
